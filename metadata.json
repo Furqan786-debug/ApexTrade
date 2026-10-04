@@ -1,0 +1,6 @@
+{
+  "name": "ApexTrade",
+  "description": "Professional trading platform and administrative portal for spot and derivative trading, real-time positions, TRC20 deposits, withdrawals, and immutable audit logs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
