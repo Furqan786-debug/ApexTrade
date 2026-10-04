@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ApexTrade | Professional Trading Platform</title>
+  <meta name="description" content="Official ApexTrade Platform - Spot & Derivative Binary Options, Real-time Charts, TRON (TRC20) Instant Deposits & Withdrawals.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0B0E14;
+      --card: #121721;
+      --card-border: #1E293B;
+      --green: #00E676;
+      --green-glow: rgba(0, 230, 118, 0.25);
+      --red: #FF3B30;
+      --gold: #F59E0B;
+      --gold-glow: rgba(245, 158, 11, 0.25);
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Background glow */
+    .bg-glow {
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 230, 118, 0.12) 0%, rgba(245, 158, 11, 0.05) 50%, transparent 70%);
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 32px;
+      border-bottom: 1px solid var(--card-border);
+      background: rgba(11, 14, 20, 0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--green), #00B0FF);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: 900;
+      box-shadow: 0 0 20px var(--green-glow);
+    }
+
+    .nav-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      background: rgba(245, 158, 11, 0.15);
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: #000;
+      box-shadow: 0 4px 16px var(--green-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--green-glow);
+    }
+
+    .btn-secondary {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      z-index: 5;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 40px 20px;
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(0, 230, 118, 0.1);
+      border: 1px solid rgba(0, 230, 118, 0.3);
+      border-radius: 999px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .hero-title {
+        font-size: 34px;
+      }
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, var(--green) 0%, #00B0FF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 17px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 540px;
+    }
+
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    @media (max-width: 500px) {
+      .features-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .feature-item b {
+      color: var(--text);
+      display: block;
+    }
+
+    .check-icon {
+      color: var(--green);
+      font-weight: bold;
+    }
+
+    /* App Mockup Frame */
+    .mockup-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .phone-mockup {
+      width: 100%;
+      max-width: 360px;
+      background: #000;
+      border: 8px solid #1E293B;
+      border-radius: 40px;
+      padding: 16px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 230, 118, 0.15);
+      position: relative;
+    }
+
+    .notch {
+      width: 120px;
+      height: 18px;
+      background: #1E293B;
+      border-radius: 0 0 14px 14px;
+      margin: 0 auto 16px;
+    }
+
+    .mockup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .mockup-market-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .ticker-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .price-large {
+      font-size: 22px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text);
+    }
+
+    .change-badge {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+      background: rgba(0, 230, 118, 0.15);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .trade-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .action-btn-up {
+      background: var(--green);
+      color: #000;
+      font-weight: 800;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 14px;
+      box-shadow: 0 4px 12px var(--green-glow);
+    }
+
+    .action-btn-down {
+      background: var(--red);
+      color: #FFF;
+      font-weight: 800;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .profit-pill {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 11px;
+      color: var(--gold);
+      font-weight: 700;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* Explanation Banner */
+    .info-banner {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .info-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 30px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <nav>
+    <div class="brand">
+      <div class="brand-icon">▲</div>
+      <span>ApexTrade</span>
+      <span class="nav-tag">Android Native App</span>
+    </div>
+    <div class="nav-actions">
+      <a href="https://github.com" class="btn btn-secondary">Source Code</a>
+      <a href="#download" class="btn btn-primary">Download APK</a>
+    </div>
+  </nav>
+
+  <main class="hero">
+    <div>
+      <div class="hero-badge">
+        <span>●</span> Official High-Speed Trading Portal
+      </div>
+      <h1 class="hero-title">
+        Binary & Spot Trading <br>
+        <span class="highlight">Engine on Android</span>
+      </h1>
+      <p class="hero-desc">
+        ApexTrade provides real-time market data, UP ⬆ / DOWN ⬇ contract execution, 10% to 100% profit tiers, and automated TRON (TRC20) deposit verification.
+      </p>
+
+      <div class="features-list">
+        <div class="feature-item">
+          <span class="check-icon">✓</span>
+          <div>
+            <b>UP ⬆ & DOWN ⬇ Trading</b>
+            Real-time price contracts from $100 min
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="check-icon">✓</span>
+          <div>
+            <b>10% to 100% Profit Payout</b>
+            Tiered profit percentages based on margin
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="check-icon">✓</span>
+          <div>
+            <b>TRON (TRC20) Custody</b>
+            Fast blockchain deposits with payment screenshots
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="check-icon">✓</span>
+          <div>
+            <b>Master Admin Control</b>
+            Audit logs, trade overrides & withdrawal approvals
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-actions" id="download">
+        <button onclick="downloadApkNotice()" class="btn btn-primary" style="padding: 14px 28px; font-size: 15px;">
+          ⬇ Download APK (Android)
+        </button>
+        <button onclick="howToDeployNotice()" class="btn btn-secondary" style="padding: 14px 24px; font-size: 15px;">
+          ℹ Why GitHub Pages Shows Blank?
+        </button>
+      </div>
+
+      <div class="info-banner" id="explanationCard">
+        <div class="info-title">
+          <span>💡</span> About GitHub Pages & Android Native Apps
+        </div>
+        <p class="info-desc">
+          <strong>Why was GitHub Pages blank previously?</strong><br>
+          GitHub Pages only serves static web files (<code>index.html</code>). Because this project is a native Android application built with Kotlin, Jetpack Compose, and Gradle, GitHub Pages had no HTML landing page to display.
+        </p>
+        <p class="info-desc">
+          <strong>Resolution:</strong><br>
+          This official web portal (<code>index.html</code>) is now part of the repository root. When you deploy this repository to GitHub Pages, visitors will see this responsive portal with APK download links and live trading preview.
+        </p>
+      </div>
+    </div>
+
+    <!-- Interactive Mobile Mockup -->
+    <div class="mockup-container">
+      <div class="phone-mockup">
+        <div class="notch"></div>
+        <div class="mockup-header">
+          <div>
+            <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase; font-weight: 700;">Account Balance</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--text); font-family: 'JetBrains Mono', monospace;">1,250.00 <span style="font-size: 12px; color: var(--gold);">USDT</span></div>
+          </div>
+          <span style="font-size: 11px; color: var(--green); background: rgba(0,230,118,0.15); padding: 3px 8px; border-radius: 6px; font-weight: bold;">LIVE</span>
+        </div>
+
+        <div class="mockup-market-card">
+          <div class="ticker-row">
+            <div>
+              <div style="font-weight: 800; font-size: 14px;">BTC/USDT</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Bitcoin Spot</div>
+            </div>
+            <div style="text-align: right;">
+              <div class="price-large" id="liveBtcPrice">67,450.00</div>
+              <div class="change-badge">+2.45%</div>
+            </div>
+          </div>
+
+          <div class="trade-actions">
+            <div class="action-btn-up">UP ⬆ (Call)</div>
+            <div class="action-btn-down">DOWN ⬇ (Put)</div>
+          </div>
+
+          <div class="profit-pill">
+            ★ VIP Tier: +100% Maximum Profit Unlocked
+          </div>
+        </div>
+
+        <div class="mockup-market-card" style="margin-bottom: 0;">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px;">
+            <span style="color: var(--text-muted);">TRC20 Wallet:</span>
+            <span style="color: var(--gold); font-family: 'JetBrains Mono', monospace; font-size: 11px;">TB5vxH...BK3ZZ</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 12px;">
+            <span style="color: var(--text-muted);">Execution Time:</span>
+            <span style="color: var(--text); font-weight: bold;">60 Seconds</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    ApexTrade Platform • Built with Kotlin & Jetpack Compose for Android • Deployed with GitHub Pages
+  </footer>
+
+  <script>
+    // Live price tick simulation for the mockup
+    let price = 67450.00;
+    setInterval(() => {
+      const delta = (Math.random() - 0.49) * 25.0;
+      price = Math.max(65000, price + delta);
+      const el = document.getElementById('liveBtcPrice');
+      if (el) {
+        el.innerText = price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+    }, 2000);
+
+    function downloadApkNotice() {
+      alert("To install ApexTrade on your Android device:\n1. Download the generated 'app-debug.apk' from the repository releases or '.build-outputs/app-debug.apk'.\n2. Open the APK on your Android phone to install!\n3. You can also export the APK directly from Google AI Studio.");
+    }
+
+    function howToDeployNotice() {
+      const card = document.getElementById('explanationCard');
+      card.scrollIntoView({ behavior: 'smooth' });
+      card.style.borderColor = 'var(--green)';
+      setTimeout(() => { card.style.borderColor = 'var(--card-border)'; }, 2000);
+    }
+  </script>
+</body>
+</html>
